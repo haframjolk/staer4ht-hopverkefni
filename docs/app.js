@@ -54,6 +54,9 @@ noUiSlider.create(maxIterationSlider, {
 scaleSlider.noUiSlider.on("update", val => { scale = val[0]; render(); });
 maxIterationSlider.noUiSlider.on("update", val => { maxIterations = val[0]; render(); });
 
+/* ================
+   Fractal renderer
+   ================ */
 function render() {
     // Raðir (x)
     for (let x = 0; x < canvas.width / scale; x++) {
@@ -63,7 +66,7 @@ function render() {
             let cx = -2 + x / (200 / scale);
             let cy = -2 + y / (200 / scale);
 
-            // TODO: http://slicker.me/fractals/zoom.htm
+            // TODO: Bæta við litum, zoom?
 
             // Mandelbrot-fallaútreikningar
             let zx = 0;
@@ -88,5 +91,3 @@ function render() {
         }
     }
 }
-// Óþarfi að kalla á render því, sliderarnir gerir það þegar þeir eru tilbúnir
-// render();
