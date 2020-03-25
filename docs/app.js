@@ -5,6 +5,12 @@ const ctx = canvas.getContext("2d");
 const scaleSlider = document.getElementById("scale-slider");
 const maxIterationSlider = document.getElementById("iteration-slider");
 
+/* ==========
+   Stillingar
+   ========== */
+let scale;          // Sjálfgefið 4
+let maxIterations;  // Sjálfgefið 255
+
 /* =======
    Sliders
    ======= */
@@ -15,6 +21,14 @@ noUiSlider.create(scaleSlider, {
     range: {
         "min": 1,
         "max": 10
+    },
+    format: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
     }
 });
 
@@ -25,14 +39,20 @@ noUiSlider.create(maxIterationSlider, {
     range: {
         "min": 1,
         "max": 255
+    },
+    format: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
     }
 });
 
-/* ==========
-   Stillingar
-   ========== */
-const scale = 4;
-const maxIterations = 255;
+// Slider events
+scaleSlider.noUiSlider.on("update", val => { scale = val[0]; render(); });
+maxIterationSlider.noUiSlider.on("update", val => { maxIterations = val[0]; render(); });
 
 function render() {
     // Raðir (x)
@@ -68,4 +88,5 @@ function render() {
         }
     }
 }
-render();
+// Óþarfi að kalla á render því, sliderarnir gerir það þegar þeir eru tilbúnir
+// render();
