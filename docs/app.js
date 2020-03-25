@@ -11,8 +11,8 @@ for (let x = 0; x < canvas.width / scale; x++) {
     // Dálkar (y)
     for (let y = 0; y < canvas.height / scale; y++) {
         // Finna gildi á tvinnsléttu (e. complex plane)
-        let cx = -2 + x / 50;
-        let cy = -2 + y / 50;
+        let cx = -2 + x / (200 / scale);
+        let cy = -2 + y / (200 / scale);
 
         // Mandelbrot-fallaútreikningar
         let zx = 0;
