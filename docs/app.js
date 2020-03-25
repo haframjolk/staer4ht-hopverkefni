@@ -4,7 +4,7 @@ const canvas = document.getElementById("app");
 const ctx = canvas.getContext("2d");
 
 const scale = 4;
-const depth = 255;
+const maxIterations = 255;
 
 // Raðir (x)
 for (let x = 0; x < canvas.width / scale; x++) {
@@ -20,7 +20,7 @@ for (let x = 0; x < canvas.width / scale; x++) {
 
         // Stoppar ef zx^2 + zy^2 er hærra en eða jafnt og scale því þá er ósamleitni og þá þarf ekki að halda áfram
         let i;
-        for (i = 0; i < depth && (zx * zx + zy * zy) < scale; i++) {
+        for (i = 0; i < maxIterations && (zx * zx + zy * zy) < scale; i++) {
             let xt = zx * zy;
             zx = zx * zx - zy * zy + cx;  // zx^2 - xy^2 + cx
             zy = 2 * xt + cy;             // 2xt + cy
