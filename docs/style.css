@@ -8,7 +8,31 @@ body {
     font-family: sans-serif;
     text-align: center;
 }
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 2em;
+}
+main .settings {
+    text-align: left;
+}
+main .settings .nouislider {
+    margin: 2.5em 0;
+}
+
+main,
 .main-header,
 .main-footer {
     padding: 1em;
+}
+
+@media screen and (min-width: 1024px) {
+    main {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr auto;
+    }
+    main .canvas {
+        text-align: right;
+    }
 }

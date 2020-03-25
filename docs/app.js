@@ -2,7 +2,35 @@
 
 const canvas = document.getElementById("app");
 const ctx = canvas.getContext("2d");
+const scaleSlider = document.getElementById("scale-slider");
+const maxIterationSlider = document.getElementById("iteration-slider");
 
+/* =======
+   Sliders
+   ======= */
+noUiSlider.create(scaleSlider, {
+    start: 4,
+    step: 1,
+    tooltips: [true],
+    range: {
+        "min": 1,
+        "max": 10
+    }
+});
+
+noUiSlider.create(maxIterationSlider, {
+    start: 255,
+    step: 1,
+    tooltips: [true],
+    range: {
+        "min": 1,
+        "max": 255
+    }
+});
+
+/* ==========
+   Stillingar
+   ========== */
 const scale = 4;
 const maxIterations = 255;
 
@@ -14,6 +42,8 @@ function render() {
             // Finna gildi á tvinnsléttu (e. complex plane)
             let cx = -2 + x / (200 / scale);
             let cy = -2 + y / (200 / scale);
+
+            // TODO: http://slicker.me/fractals/zoom.htm
 
             // Mandelbrot-fallaútreikningar
             let zx = 0;
