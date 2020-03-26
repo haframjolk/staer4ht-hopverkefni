@@ -3,21 +3,42 @@
 const canvas = document.getElementById("app");
 const ctx = canvas.getContext("2d");
 const scaleSlider = document.getElementById("scale-slider");
+const resolutionSlider = document.getElementById("resolution-slider");
 const maxIterationSlider = document.getElementById("iteration-slider");
 
 /* ==========
    Stillingar
    ========== */
-let scale;          // Sjálfgefið 4
-let maxIterations;  // Sjálfgefið 255
+let scale = 50;           // Sjálfgefið 50
+let resolution = 4;       // Sjálfgefið 4
+let maxIterations = 255;  // Sjálfgefið 255
+
+let xmin = -2;
+let ymin = -2;
 
 /* =======
    Sliders
    ======= */
 noUiSlider.create(scaleSlider, {
-    start: 4,
+    start: scale,
     step: 1,
     tooltips: [true],
+    range: {
+        "min": 1,
+        "max": 200
+    },
+    format: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
+    }
+});
+noUiSlider.create(resolutionSlider, {
+    start: resolution,
+    step: 1,
     range: {
         "min": 1,
         "max": 10
@@ -29,11 +50,16 @@ noUiSlider.create(scaleSlider, {
         from(value) {
             return Math.round(value);
         }
-    }
+    },
+    tooltips: [{
+        // Sýna upplausnartölu sem almenn brot (því það er deilt með henni)
+        to(value) {
+            return `1/${Math.round(value)}`;
+        }
+    }]
 });
-
 noUiSlider.create(maxIterationSlider, {
-    start: 255,
+    start: maxIterations,
     step: 1,
     tooltips: [true],
     range: {
@@ -51,22 +77,21 @@ noUiSlider.create(maxIterationSlider, {
 });
 
 // Slider events
-scaleSlider.noUiSlider.on("update", val => { scale = val[0]; render(); });
-maxIterationSlider.noUiSlider.on("update", val => { maxIterations = val[0]; render(); });
+scaleSlider.noUiSlider.on("set", val => { scale = val[0]; render(); });
+resolutionSlider.noUiSlider.on("set", val => { resolution = val[0]; render(); });
+maxIterationSlider.noUiSlider.on("set", val => { maxIterations = val[0]; render(); });
 
 /* ================
    Fractal renderer
    ================ */
 function render() {
     // Raðir (x)
-    for (let x = 0; x < canvas.width / scale; x++) {
+    for (let x = 0; x < canvas.width / resolution; x++) {
         // Dálkar (y)
-        for (let y = 0; y < canvas.height / scale; y++) {
+        for (let y = 0; y < canvas.height / resolution; y++) {
             // Finna gildi á tvinnsléttu (e. complex plane)
-            let cx = -2 + x / (200 / scale);
-            let cy = -2 + y / (200 / scale);
-
-            // TODO: Bæta við litum, zoom?
+            let cx = xmin + x / scale;
+            let cy = ymin + y / scale;
 
             // Mandelbrot-fallaútreikningar
             let zx = 0;
@@ -85,9 +110,10 @@ function render() {
 
             // Teikna hvern bút
             ctx.beginPath();
-            ctx.rect(x * scale, y * scale, scale, scale);
+            ctx.rect(x * resolution, y * resolution, resolution, resolution);
             ctx.fillStyle = `#${color}${color}${color}`;
             ctx.fill();
         }
     }
 }
+render();
