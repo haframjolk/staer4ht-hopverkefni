@@ -22,6 +22,9 @@ main .settings {
 main .settings .nouislider {
     margin: 2.5em 0;
 }
+canvas {
+    max-width: 100%;
+}
 
 main,
 .main-header,
