@@ -5,22 +5,28 @@ const ctx = canvas.getContext("2d");
 const scaleSlider = document.getElementById("scale-slider");
 const resolutionSlider = document.getElementById("resolution-slider");
 const maxIterationSlider = document.getElementById("iteration-slider");
+const xPosSlider = document.getElementById("x-pos-slider");
+const yPosSlider = document.getElementById("y-pos-slider");
+const sliders = [scaleSlider, resolutionSlider, maxIterationSlider, xPosSlider, yPosSlider];
+const sliderResetBtn = document.getElementById("slider-reset-btn");
 
 /* ==========
    Stillingar
    ========== */
-let scale = 50;           // Sjálfgefið 50
-let resolution = 4;       // Sjálfgefið 4
-let maxIterations = 255;  // Sjálfgefið 255
-
-let xmin = -2;
-let ymin = -2;
+let settings = {
+    scale: 200,          // Stærð fractals
+    resolution: 4,       // Upplausn (deilt með, þ.e. 4 = 1/4)
+    maxIterations: 255,  // Hámarksfjöldi ítrana
+    xmin: -2,            // Upphafsstaðsetning fractals (x)
+    ymin: -2,            // Upphafsstaðsetning fractals (y)
+    rendering: true
+};
 
 /* =======
    Sliders
    ======= */
 noUiSlider.create(scaleSlider, {
-    start: scale,
+    start: settings.scale,
     step: 1,
     tooltips: [true],
     range: {
@@ -37,7 +43,7 @@ noUiSlider.create(scaleSlider, {
     }
 });
 noUiSlider.create(resolutionSlider, {
-    start: resolution,
+    start: settings.resolution,
     step: 1,
     range: {
         "min": 1,
@@ -59,7 +65,7 @@ noUiSlider.create(resolutionSlider, {
     }]
 });
 noUiSlider.create(maxIterationSlider, {
-    start: maxIterations,
+    start: settings.maxIterations,
     step: 1,
     tooltips: [true],
     range: {
@@ -75,23 +81,76 @@ noUiSlider.create(maxIterationSlider, {
         }
     }
 });
+noUiSlider.create(xPosSlider, {
+    start: settings.xmin,
+    step: 1,
+    tooltips: [true],
+    range: {
+        "min": -10,
+        "max": 5
+    },
+    format: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
+    }
+});
+noUiSlider.create(yPosSlider, {
+    start: settings.ymin,
+    step: 1,
+    tooltips: [true],
+    range: {
+        "min": -10,
+        "max": 5
+    },
+    format: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
+    }
+});
+
+// Uppfæra stillingar og teikna fractal upp á nýtt ef á við
+function updateSettingsValue(propertyName, newValue) {
+    settings[propertyName] = newValue;
+    if (settings.rendering) {
+        render();
+    }
+}
 
 // Slider events
-scaleSlider.noUiSlider.on("set", val => { scale = val[0]; render(); });
-resolutionSlider.noUiSlider.on("set", val => { resolution = val[0]; render(); });
-maxIterationSlider.noUiSlider.on("set", val => { maxIterations = val[0]; render(); });
+scaleSlider.noUiSlider.on("set", val => updateSettingsValue("scale", val[0]));
+resolutionSlider.noUiSlider.on("set", val => updateSettingsValue("resolution", val[0]));
+maxIterationSlider.noUiSlider.on("set", val => updateSettingsValue("maxIterations", val[0]));
+xPosSlider.noUiSlider.on("set", val => updateSettingsValue("xmin", val[0]));
+yPosSlider.noUiSlider.on("set", val => updateSettingsValue("ymin", val[0]));
+
+// Takki til að núllstilla alla slidera
+sliderResetBtn.addEventListener("click", event => {
+    event.preventDefault();
+    settings.rendering = false;
+    sliders.forEach(sliderElement => sliderElement.noUiSlider.reset());
+    render();
+    settings.rendering = true;
+});
 
 /* ================
    Fractal renderer
    ================ */
 function render() {
     // Raðir (x)
-    for (let x = 0; x < canvas.width / resolution; x++) {
+    for (let x = 0; x < canvas.width / settings.resolution; x++) {
         // Dálkar (y)
-        for (let y = 0; y < canvas.height / resolution; y++) {
+        for (let y = 0; y < canvas.height / settings.resolution; y++) {
             // Finna gildi á tvinnsléttu (e. complex plane)
-            let cx = xmin + x / (scale / resolution);
-            let cy = ymin + y / (scale / resolution);
+            let cx = settings.xmin + x / (settings.scale / settings.resolution);
+            let cy = settings.ymin + y / (settings.scale / settings.resolution);
 
             // Mandelbrot-fallaútreikningar
             let zx = 0;
@@ -99,7 +158,7 @@ function render() {
 
             // Stoppar ef zx^2 + zy^2 er hærra en eða jafnt og 4 því þá er ósamleitni og þá þarf ekki að halda áfram
             let i;
-            for (i = 0; i < maxIterations && (zx * zx + zy * zy) < 4; i++) {
+            for (i = 0; i < settings.maxIterations && (zx * zx + zy * zy) < 4; i++) {
                 let xt = zx * zy;
                 zx = zx * zx - zy * zy + cx;  // zx^2 - xy^2 + cx
                 zy = 2 * xt + cy;             // 2xt + cy
@@ -110,7 +169,7 @@ function render() {
 
             // Teikna hvern bút
             ctx.beginPath();
-            ctx.rect(x * resolution, y * resolution, resolution, resolution);
+            ctx.rect(x * settings.resolution, y * settings.resolution, settings.resolution, settings.resolution);
             ctx.fillStyle = `#${color}${color}${color}`;
             ctx.fill();
         }
