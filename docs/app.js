@@ -25,7 +25,7 @@ noUiSlider.create(scaleSlider, {
     tooltips: [true],
     range: {
         "min": 1,
-        "max": 200
+        "max": 255
     },
     format: {
         to(value) {
@@ -90,8 +90,8 @@ function render() {
         // Dálkar (y)
         for (let y = 0; y < canvas.height / resolution; y++) {
             // Finna gildi á tvinnsléttu (e. complex plane)
-            let cx = xmin + x / scale;
-            let cy = ymin + y / scale;
+            let cx = xmin + x / (scale / resolution);
+            let cy = ymin + y / (scale / resolution);
 
             // Mandelbrot-fallaútreikningar
             let zx = 0;
