@@ -18,7 +18,7 @@ const paramResetBtn = document.getElementById("param-reset-btn");
 /* ==========
    Stillingar
    ========== */
-let settings = {
+const settings = {
     scale: 200,          // Stærð fractals
     resolution: 4,       // Upplausn (deilt með, þ.e. 4 = 1/4)
     maxIterations: 255,  // Hámarksfjöldi ítrana
@@ -108,7 +108,7 @@ function updateSettingsValue(propertyName, newValue) {
 }
 // Núllstilla alla slidera
 function resetAllSliders() {
-    for (let key in sliders) {
+    for (const key in sliders) {
         sliders[key].noUiSlider.reset();
     }
 }
@@ -122,7 +122,7 @@ function resetColor() {
    Events
    ====== */
 // Slider events
-for (let key in sliders) {
+for (const key in sliders) {
     sliders[key].noUiSlider.on("set", val => updateSettingsValue(key, val[0]));  // Hver slider uppfærir stillingu með samsvarandi nafni
 }
 // Velja lit á fractal (radio takkar)
