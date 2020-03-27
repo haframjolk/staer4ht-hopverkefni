@@ -10,8 +10,8 @@ const sliders = {
     ymin: document.getElementById("y-pos-slider")
 };
 
-const paramResetBtn = document.getElementById("param-reset-btn");
 const colorSelect = document.getElementById("color-select");
+const paramResetBtn = document.getElementById("param-reset-btn");
 
 /* ==========
    Stillingar
