@@ -1,5 +1,8 @@
 "use strict";
 
+/* ==========
+   DOM fastar
+   ========== */
 const canvas = document.getElementById("app");
 const ctx = canvas.getContext("2d");
 const sliders = {
@@ -9,7 +12,6 @@ const sliders = {
     xmin: document.getElementById("x-pos-slider"),
     ymin: document.getElementById("y-pos-slider")
 };
-
 const colorSelect = document.getElementById("color-select");
 const paramResetBtn = document.getElementById("param-reset-btn");
 
