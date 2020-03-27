@@ -52,8 +52,8 @@ noUiSlider.create(sliders.resolution, {
     start: settings.resolution,
     step: 1,
     range: {
-        "min": 1,
-        "max": 10
+        min: 1,
+        max: 10
     },
     format: settings.sliderNumberFormat,
     tooltips: [{
@@ -68,8 +68,8 @@ noUiSlider.create(sliders.maxIterations, {
     step: 1,
     tooltips: [true],
     range: {
-        "min": 1,
-        "max": 255
+        min: 1,
+        max: 255
     },
     format: settings.sliderNumberFormat
 });
@@ -78,8 +78,8 @@ noUiSlider.create(sliders.xmin, {
     step: 1,
     tooltips: [true],
     range: {
-        "min": -10,
-        "max": 5
+        min: -10,
+        max: 5
     },
     format: settings.sliderNumberFormat
 });
@@ -88,8 +88,8 @@ noUiSlider.create(sliders.ymin, {
     step: 1,
     tooltips: [true],
     range: {
-        "min": -10,
-        "max": 5
+        min: -10,
+        max: 5
     },
     format: settings.sliderNumberFormat
 });
