@@ -120,6 +120,9 @@ noUiSlider.create(sliders.ymin, {
     }
 });
 
+/* ====
+   Föll
+   ==== */
 // Uppfæra stillingar og teikna fractal upp á nýtt ef á við
 function updateSettingsValue(propertyName, newValue) {
     settings[propertyName] = newValue;
@@ -127,25 +130,25 @@ function updateSettingsValue(propertyName, newValue) {
         render();
     }
 }
-
 // Núllstilla lit í svarthvítt (upphafsgildi)
 function resetColor() {
     colorSelect.querySelector("input[value='bw']").checked = true;
     settings.color = "bw";
 }
 
+/* ======
+   Events
+   ====== */
 // Slider events
 for (let key in sliders) {
     sliders[key].noUiSlider.on("set", val => updateSettingsValue(key, val[0]));  // Hver slider uppfærir stillingu með samsvarandi nafni
 }
-
 // Velja lit á fractal (radio takkar)
 colorSelect.addEventListener("change", event => {
     settings.color = event.target.value;
     render();
 });
-
-// Takki til að núllstilla alla slidera
+// Takki til að núllstilla alla slidera og lit
 paramResetBtn.addEventListener("click", event => {
     event.preventDefault();
     settings.rendering = false;
