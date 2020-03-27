@@ -9,6 +9,7 @@ const xPosSlider = document.getElementById("x-pos-slider");
 const yPosSlider = document.getElementById("y-pos-slider");
 const sliders = [scaleSlider, resolutionSlider, maxIterationSlider, xPosSlider, yPosSlider];
 const sliderResetBtn = document.getElementById("slider-reset-btn");
+const colorSelect = document.getElementById("color-select");
 
 /* ==========
    Stillingar
@@ -19,7 +20,8 @@ let settings = {
     maxIterations: 255,  // Hámarksfjöldi ítrana
     xmin: -2,            // Upphafsstaðsetning fractals (x)
     ymin: -2,            // Upphafsstaðsetning fractals (y)
-    rendering: true
+    rendering: true,
+    color: "bw"
 };
 
 /* =======
@@ -131,6 +133,12 @@ maxIterationSlider.noUiSlider.on("set", val => updateSettingsValue("maxIteration
 xPosSlider.noUiSlider.on("set", val => updateSettingsValue("xmin", val[0]));
 yPosSlider.noUiSlider.on("set", val => updateSettingsValue("ymin", val[0]));
 
+// Velja lit á fractal
+colorSelect.addEventListener("change", event => {
+    settings.color = event.target.value;
+    render();
+});
+
 // Takki til að núllstilla alla slidera
 sliderResetBtn.addEventListener("click", event => {
     event.preventDefault();
@@ -170,7 +178,16 @@ function render() {
             // Teikna hvern bút
             ctx.beginPath();
             ctx.rect(x * settings.resolution, y * settings.resolution, settings.resolution, settings.resolution);
-            ctx.fillStyle = `#${color}${color}${color}`;
+            // Velja lit út frá núverandi stillingu
+            if (settings.color == "bw") {
+                ctx.fillStyle = `#${color}${color}${color}`;
+            } else if (settings.color == "r") {
+                ctx.fillStyle = `#${color}00`;
+            } else if (settings.color == "g") {
+                ctx.fillStyle = `#0${color}0`;
+            } else if (settings.color == "b") {
+                ctx.fillStyle = `#00${color}`;
+            }
             ctx.fill();
         }
     }

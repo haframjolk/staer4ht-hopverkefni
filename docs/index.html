@@ -14,16 +14,40 @@
     </header>
     <main>
         <aside class="settings">
-            <label for="scale">Scale</label>
-            <div id="scale-slider" name="scale" class="nouislider"></div>
-            <label for="resolution">Resolution</label>
-            <div id="resolution-slider" name="resolution" class="nouislider"></div>
-            <label for="iterations">Max iterations</label>
-            <div id="iteration-slider" name="iterations" class="nouislider"></div>
-            <label for="x-pos">X position</label>
-            <div id="x-pos-slider" name="x-pos" class="nouislider"></div>
-            <label for="y-pos">Y position</label>
-            <div id="y-pos-slider" name="y-pos" class="nouislider"></div>
+            <label>Scale
+                <div id="scale-slider" name="scale" class="nouislider"></div>
+            </label>
+            <label>Resolution
+                <div id="resolution-slider" name="resolution" class="nouislider"></div>
+            </label>
+            <label>Max iterations
+                <div id="iteration-slider" name="iterations" class="nouislider"></div>
+            </label>
+            <label>X position
+                <div id="x-pos-slider" name="x-pos" class="nouislider"></div>
+            </label>
+            <label>Y position
+                <div id="y-pos-slider" name="y-pos" class="nouislider"></div>
+            </label>
+            <fieldset name="color-select" id="color-select">
+                <legend>Color</legend>
+                <label>
+                    <input type="radio" id="black-and-white" name="color" value="bw" checked>
+                    Grayscale
+                </label>
+                <label>
+                    <input type="radio" id="red" name="color" value="r">
+                    Red
+                </label>
+                <label>
+                    <input type="radio" id="green" name="color" value="g">
+                    Green
+                </label>
+                <label>
+                    <input type="radio" id="blue" name="color" value="b">
+                    Blue
+                </label>
+            </fieldset>
             <button type="reset" id="slider-reset-btn">Reset sliders</button>
         </aside>
         <section class="canvas">
