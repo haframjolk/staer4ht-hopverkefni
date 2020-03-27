@@ -181,11 +181,11 @@ function render() {
             if (settings.color == "bw") {
                 ctx.fillStyle = `#${color}${color}${color}`;  // Svarthvítt
             } else if (settings.color == "r") {
-                ctx.fillStyle = `#${color}0000`;                // Rauður
+                ctx.fillStyle = `#${color}0000`;              // Rauður
             } else if (settings.color == "g") {
-                ctx.fillStyle = `#00${color}00`;                // Grænn
+                ctx.fillStyle = `#00${color}00`;              // Grænn
             } else if (settings.color == "b") {
-                ctx.fillStyle = `#0000${color}`;                // Blár
+                ctx.fillStyle = `#0000${color}`;              // Blár
             }
             ctx.fill();
         }
