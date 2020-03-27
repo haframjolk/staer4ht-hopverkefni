@@ -168,7 +168,11 @@ function render() {
             }
 
             // Velja lit fyrir hvern bút út frá því hve margar ítranir voru gerðar í lykkjunni hér að ofan
-            const color = i.toString(16);
+            let color = i.toString(16);
+            // Ef hex strengurinn fyrir litinn er bara 1 stafur, tvöfalda hann að lengd svo hann virki alltaf með núllum hér fyrir neðan
+            if (color.length == 1) {
+                color = color.repeat(2);
+            }
 
             // Teikna hvern bút
             ctx.beginPath();
@@ -177,11 +181,11 @@ function render() {
             if (settings.color == "bw") {
                 ctx.fillStyle = `#${color}${color}${color}`;  // Svarthvítt
             } else if (settings.color == "r") {
-                ctx.fillStyle = `#${color}00`;                // Rauður
+                ctx.fillStyle = `#${color}0000`;                // Rauður
             } else if (settings.color == "g") {
-                ctx.fillStyle = `#0${color}0`;                // Grænn
+                ctx.fillStyle = `#00${color}00`;                // Grænn
             } else if (settings.color == "b") {
-                ctx.fillStyle = `#00${color}`;                // Blár
+                ctx.fillStyle = `#0000${color}`;                // Blár
             }
             ctx.fill();
         }
