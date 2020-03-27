@@ -43,12 +43,12 @@ const settings = {
 noUiSlider.create(sliders.scale, {
     start: settings.scale,
     step: 1,
-    tooltips: [true],
     range: {
         "min": 1,
         "max": 255
     },
-    format: settings.sliderNumberFormat
+    format: settings.sliderNumberFormat,
+    tooltips: [true]
 });
 noUiSlider.create(sliders.resolution, {
     start: settings.resolution,
@@ -68,32 +68,32 @@ noUiSlider.create(sliders.resolution, {
 noUiSlider.create(sliders.maxIterations, {
     start: settings.maxIterations,
     step: 1,
-    tooltips: [true],
     range: {
         min: 1,
         max: 255
     },
-    format: settings.sliderNumberFormat
+    format: settings.sliderNumberFormat,
+    tooltips: [true]
 });
 noUiSlider.create(sliders.xmin, {
     start: settings.xmin,
     step: 1,
-    tooltips: [true],
     range: {
         min: -10,
         max: 5
     },
-    format: settings.sliderNumberFormat
+    format: settings.sliderNumberFormat,
+    tooltips: [true]
 });
 noUiSlider.create(sliders.ymin, {
     start: settings.ymin,
     step: 1,
-    tooltips: [true],
     range: {
         min: -10,
         max: 5
     },
-    format: settings.sliderNumberFormat
+    format: settings.sliderNumberFormat,
+    tooltips: [true]
 });
 
 /* ====
