@@ -2,12 +2,14 @@
 
 const canvas = document.getElementById("app");
 const ctx = canvas.getContext("2d");
-const scaleSlider = document.getElementById("scale-slider");
-const resolutionSlider = document.getElementById("resolution-slider");
-const maxIterationSlider = document.getElementById("iteration-slider");
-const xPosSlider = document.getElementById("x-pos-slider");
-const yPosSlider = document.getElementById("y-pos-slider");
-const sliders = [scaleSlider, resolutionSlider, maxIterationSlider, xPosSlider, yPosSlider];
+const sliders = {
+    scale: document.getElementById("scale-slider"),
+    resolution: document.getElementById("resolution-slider"),
+    maxIterations: document.getElementById("iteration-slider"),
+    xmin: document.getElementById("x-pos-slider"),
+    ymin: document.getElementById("y-pos-slider")
+};
+
 const sliderResetBtn = document.getElementById("slider-reset-btn");
 const colorSelect = document.getElementById("color-select");
 
@@ -27,7 +29,7 @@ let settings = {
 /* =======
    Sliders
    ======= */
-noUiSlider.create(scaleSlider, {
+noUiSlider.create(sliders.scale, {
     start: settings.scale,
     step: 1,
     tooltips: [true],
@@ -44,7 +46,7 @@ noUiSlider.create(scaleSlider, {
         }
     }
 });
-noUiSlider.create(resolutionSlider, {
+noUiSlider.create(sliders.resolution, {
     start: settings.resolution,
     step: 1,
     range: {
@@ -66,7 +68,7 @@ noUiSlider.create(resolutionSlider, {
         }
     }]
 });
-noUiSlider.create(maxIterationSlider, {
+noUiSlider.create(sliders.maxIterations, {
     start: settings.maxIterations,
     step: 1,
     tooltips: [true],
@@ -83,7 +85,7 @@ noUiSlider.create(maxIterationSlider, {
         }
     }
 });
-noUiSlider.create(xPosSlider, {
+noUiSlider.create(sliders.xmin, {
     start: settings.xmin,
     step: 1,
     tooltips: [true],
@@ -100,7 +102,7 @@ noUiSlider.create(xPosSlider, {
         }
     }
 });
-noUiSlider.create(yPosSlider, {
+noUiSlider.create(sliders.ymin, {
     start: settings.ymin,
     step: 1,
     tooltips: [true],
@@ -127,13 +129,11 @@ function updateSettingsValue(propertyName, newValue) {
 }
 
 // Slider events
-scaleSlider.noUiSlider.on("set", val => updateSettingsValue("scale", val[0]));
-resolutionSlider.noUiSlider.on("set", val => updateSettingsValue("resolution", val[0]));
-maxIterationSlider.noUiSlider.on("set", val => updateSettingsValue("maxIterations", val[0]));
-xPosSlider.noUiSlider.on("set", val => updateSettingsValue("xmin", val[0]));
-yPosSlider.noUiSlider.on("set", val => updateSettingsValue("ymin", val[0]));
+for (let key in sliders) {
+    sliders[key].noUiSlider.on("set", val => updateSettingsValue(key, val[0]));  // Hver slider uppfærir stillingu með samsvarandi nafni
+}
 
-// Velja lit á fractal
+// Velja lit á fractal (radio takkar)
 colorSelect.addEventListener("change", event => {
     settings.color = event.target.value;
     render();
@@ -143,7 +143,9 @@ colorSelect.addEventListener("change", event => {
 sliderResetBtn.addEventListener("click", event => {
     event.preventDefault();
     settings.rendering = false;
-    sliders.forEach(sliderElement => sliderElement.noUiSlider.reset());
+    for (let key in sliders) {
+        sliders[key].noUiSlider.reset();
+    }
     render();
     settings.rendering = true;
 });
@@ -178,15 +180,15 @@ function render() {
             // Teikna hvern bút
             ctx.beginPath();
             ctx.rect(x * settings.resolution, y * settings.resolution, settings.resolution, settings.resolution);
-            // Velja lit út frá núverandi stillingu
+            // Velja hex lit út frá núverandi stillingu
             if (settings.color == "bw") {
-                ctx.fillStyle = `#${color}${color}${color}`;
+                ctx.fillStyle = `#${color}${color}${color}`;  // Svarthvítt
             } else if (settings.color == "r") {
-                ctx.fillStyle = `#${color}00`;
+                ctx.fillStyle = `#${color}00`;                // Rauður
             } else if (settings.color == "g") {
-                ctx.fillStyle = `#0${color}0`;
+                ctx.fillStyle = `#0${color}0`;                // Grænn
             } else if (settings.color == "b") {
-                ctx.fillStyle = `#00${color}`;
+                ctx.fillStyle = `#00${color}`;                // Blár
             }
             ctx.fill();
         }
