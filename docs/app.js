@@ -26,7 +26,7 @@ let settings = {
     ymin: -2,            // Upphafsstaðsetning fractals (y)
     rendering: true,     // Á að rendera ef stillingum er breyttr?
     color: "bw",         // Í hvaða lit á fractalinn að vera
-    // Formatting stillingar fyrir sliders
+    // Formatting stillingar fyrir sliders (heiltölur)
     sliderNumberFormat: {
         to(value) {
             return Math.round(value);
