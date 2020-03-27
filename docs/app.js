@@ -130,6 +130,12 @@ function updateSettingsValue(propertyName, newValue) {
         render();
     }
 }
+// Núllstilla alla slidera
+function resetAllSliders() {
+    for (let key in sliders) {
+        sliders[key].noUiSlider.reset();
+    }
+}
 // Núllstilla lit í svarthvítt (upphafsgildi)
 function resetColor() {
     colorSelect.querySelector("input[value='bw']").checked = true;
@@ -152,10 +158,7 @@ colorSelect.addEventListener("change", event => {
 paramResetBtn.addEventListener("click", event => {
     event.preventDefault();
     settings.rendering = false;
-    // Núllstilla alla slidera
-    for (let key in sliders) {
-        sliders[key].noUiSlider.reset();
-    }
+    resetAllSliders();
     resetColor();
     render();
     settings.rendering = true;
