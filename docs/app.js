@@ -154,6 +154,9 @@ sliderResetBtn.addEventListener("click", event => {
    Fractal renderer
    ================ */
 function render() {
+    // Hreinsa canvas áður en byrjað er að teikna
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
     // Raðir (x)
     for (let x = 0; x < canvas.width / settings.resolution; x++) {
         // Dálkar (y)
