@@ -10,7 +10,7 @@ const sliders = {
     ymin: document.getElementById("y-pos-slider")
 };
 
-const sliderResetBtn = document.getElementById("slider-reset-btn");
+const paramResetBtn = document.getElementById("param-reset-btn");
 const colorSelect = document.getElementById("color-select");
 
 /* ==========
@@ -128,6 +128,12 @@ function updateSettingsValue(propertyName, newValue) {
     }
 }
 
+// Núllstilla lit í svarthvítt (upphafsgildi)
+function resetColor() {
+    colorSelect.querySelector("input[value='bw']").checked = true;
+    settings.color = "bw";
+}
+
 // Slider events
 for (let key in sliders) {
     sliders[key].noUiSlider.on("set", val => updateSettingsValue(key, val[0]));  // Hver slider uppfærir stillingu með samsvarandi nafni
@@ -140,12 +146,14 @@ colorSelect.addEventListener("change", event => {
 });
 
 // Takki til að núllstilla alla slidera
-sliderResetBtn.addEventListener("click", event => {
+paramResetBtn.addEventListener("click", event => {
     event.preventDefault();
     settings.rendering = false;
+    // Núllstilla alla slidera
     for (let key in sliders) {
         sliders[key].noUiSlider.reset();
     }
+    resetColor();
     render();
     settings.rendering = true;
 });
@@ -156,7 +164,7 @@ sliderResetBtn.addEventListener("click", event => {
 function render() {
     // Hreinsa canvas áður en byrjað er að teikna
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
     // Raðir (x)
     for (let x = 0; x < canvas.width / settings.resolution; x++) {
         // Dálkar (y)
