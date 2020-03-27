@@ -22,8 +22,17 @@ let settings = {
     maxIterations: 255,  // Hámarksfjöldi ítrana
     xmin: -2,            // Upphafsstaðsetning fractals (x)
     ymin: -2,            // Upphafsstaðsetning fractals (y)
-    rendering: true,
-    color: "bw"
+    rendering: true,     // Á að rendera ef stillingum er breyttr?
+    color: "bw",         // Í hvaða lit á fractalinn að vera
+    // Formatting stillingar fyrir sliders
+    sliderNumberFormat: {
+        to(value) {
+            return Math.round(value);
+        },
+        from(value) {
+            return Math.round(value);
+        }
+    }
 };
 
 /* =======
@@ -37,14 +46,7 @@ noUiSlider.create(sliders.scale, {
         "min": 1,
         "max": 255
     },
-    format: {
-        to(value) {
-            return Math.round(value);
-        },
-        from(value) {
-            return Math.round(value);
-        }
-    }
+    format: settings.sliderNumberFormat
 });
 noUiSlider.create(sliders.resolution, {
     start: settings.resolution,
@@ -53,14 +55,7 @@ noUiSlider.create(sliders.resolution, {
         "min": 1,
         "max": 10
     },
-    format: {
-        to(value) {
-            return Math.round(value);
-        },
-        from(value) {
-            return Math.round(value);
-        }
-    },
+    format: settings.sliderNumberFormat,
     tooltips: [{
         // Sýna upplausnartölu sem almenn brot (því það er deilt með henni)
         to(value) {
@@ -76,14 +71,7 @@ noUiSlider.create(sliders.maxIterations, {
         "min": 1,
         "max": 255
     },
-    format: {
-        to(value) {
-            return Math.round(value);
-        },
-        from(value) {
-            return Math.round(value);
-        }
-    }
+    format: settings.sliderNumberFormat
 });
 noUiSlider.create(sliders.xmin, {
     start: settings.xmin,
@@ -93,14 +81,7 @@ noUiSlider.create(sliders.xmin, {
         "min": -10,
         "max": 5
     },
-    format: {
-        to(value) {
-            return Math.round(value);
-        },
-        from(value) {
-            return Math.round(value);
-        }
-    }
+    format: settings.sliderNumberFormat
 });
 noUiSlider.create(sliders.ymin, {
     start: settings.ymin,
@@ -110,14 +91,7 @@ noUiSlider.create(sliders.ymin, {
         "min": -10,
         "max": 5
     },
-    format: {
-        to(value) {
-            return Math.round(value);
-        },
-        from(value) {
-            return Math.round(value);
-        }
-    }
+    format: settings.sliderNumberFormat
 });
 
 /* ====
