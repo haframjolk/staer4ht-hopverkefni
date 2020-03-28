@@ -144,9 +144,6 @@ paramResetBtn.addEventListener("click", event => {
    Fractal renderer
    ================ */
 function render() {
-    // Hreinsa canvas áður en byrjað er að teikna
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     // Raðir (x)
     for (let x = 0; x < canvas.width / settings.resolution; x++) {
         // Dálkar (y)
@@ -168,7 +165,8 @@ function render() {
             }
 
             // Velja lit fyrir hvern bút út frá því hve margar ítranir voru gerðar í lykkjunni hér að ofan
-            let color = i.toString(16);
+            // Liturinn er valinn í hlutfalli við hámarksfjölda ítrana
+            let color = Math.round(i * (255 / settings.maxIterations)).toString(16);
             // Ef hex strengurinn fyrir litinn er bara 1 stafur, tvöfalda hann að lengd svo hann virki alltaf með núllum hér fyrir neðan
             if (color.length == 1) {
                 color = color.repeat(2);
