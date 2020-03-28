@@ -53,8 +53,8 @@ noUiSlider.create(sliders.scale, {
     start: settings.scale,
     step: 10,
     range: {
-        "min": 0,
-        "max": 2000
+        min: 0,
+        max: 2000
     },
     format: settings.sliderNumberFormat,
     tooltips: [true]
