@@ -34,6 +34,15 @@ const settings = {
         from(value) {
             return Math.round(value);
         }
+    },
+    // Formatting stillingar fyrir sliders (tugabrot)
+    sliderDecimalNumberFormat: {
+        to(value) {
+            return Number(parseFloat(value).toFixed(1));
+        },
+        from(value) {
+            return Number(parseFloat(value).toFixed(1));
+        }
     }
 };
 
@@ -42,10 +51,10 @@ const settings = {
    ======= */
 noUiSlider.create(sliders.scale, {
     start: settings.scale,
-    step: 1,
+    step: 10,
     range: {
-        "min": 1,
-        "max": 255
+        "min": 0,
+        "max": 2000
     },
     format: settings.sliderNumberFormat,
     tooltips: [true]
@@ -77,22 +86,22 @@ noUiSlider.create(sliders.maxIterations, {
 });
 noUiSlider.create(sliders.xmin, {
     start: settings.xmin,
-    step: 1,
+    step: 0.1,
     range: {
         min: -10,
         max: 5
     },
-    format: settings.sliderNumberFormat,
+    format: settings.sliderDecimalNumberFormat,
     tooltips: [true]
 });
 noUiSlider.create(sliders.ymin, {
     start: settings.ymin,
-    step: 1,
+    step: 0.1,
     range: {
         min: -10,
         max: 5
     },
-    format: settings.sliderNumberFormat,
+    format: settings.sliderDecimalNumberFormat,
     tooltips: [true]
 });
 
