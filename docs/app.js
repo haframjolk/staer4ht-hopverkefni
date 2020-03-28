@@ -144,6 +144,7 @@ paramResetBtn.addEventListener("click", event => {
    Fractal renderer
    ================ */
 function render() {
+    // Algrím byggt á http://slicker.me/fractals/fractals.htm
     // Raðir (x)
     for (let x = 0; x < canvas.width / settings.resolution; x++) {
         // Dálkar (y)
