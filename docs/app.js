@@ -169,7 +169,7 @@ function render() {
             // Stoppar ef zx^2 + zy^2 er hærra en eða jafnt og 4 því þá er ósamleitni og þá þarf ekki að halda áfram
             let i;
             for (i = 0; i < settings.maxIterations && (zx * zx + zy * zy) < 4; i++) {
-                let xt = zx * zy;
+                const xt = zx * zy;
                 zx = zx * zx - zy * zy + cx;  // zx^2 - xy^2 + cx
                 zy = 2 * xt + cy;             // 2xt + cy
             }
